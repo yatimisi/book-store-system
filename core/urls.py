@@ -21,7 +21,10 @@ from django.contrib import admin
 
 urlpatterns = [
     path('', lambda request: redirect('books:index'), name='root'),
-    path('login/', LoginView.as_view(), name='login'),
+    path('login/', LoginView.as_view(
+        template_name='users/login.html',
+        redirect_authenticated_user=True,
+    ), name='login'),
 
     path('books/', include('books.urls')),
 
