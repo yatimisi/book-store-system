@@ -15,19 +15,20 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.shortcuts import redirect
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import admin
 
 
+login_params = {
+    'template_name': 'users/login.html',
+    'redirect_authenticated_user': True,
+}
+
 urlpatterns = [
     path('', lambda request: redirect('books:index'), name='root'),
-    path('login/', LoginView.as_view(
-        template_name='users/login.html',
-        redirect_authenticated_user=True,
-    ), name='login'),
-
+    path('login/', LoginView.as_view(**login_params), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('books/', include('books.urls')),
-
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
 ]
