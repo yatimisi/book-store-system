@@ -132,3 +132,17 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/login/'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_USE_TLS = True
+
+EMAIL_PORT = 587
+
+with open(os.path.join(BASE_DIR, 'core', 'email.txt'), 'r') as f:
+    data = f.readlines()
+
+EMAIL_HOST_USER = data[0].replace('\n', '')
+
+EMAIL_HOST_PASSWORD = data[1].replace('\n', '')
